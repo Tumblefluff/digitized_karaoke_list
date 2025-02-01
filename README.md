@@ -39,15 +39,15 @@ Ensure you have a LAMP/LEMP stack installed:
 ```sh
 sudo apt update && sudo apt install nginx mariadb-server php php-mysql
 ```
+or
+```sh
+sudo apt update && sudo apt install apache2 mariadb-server php php-mysql
+```
 
 Enable necessary PHP extensions:
 
 ```sh
 sudo apt install php-curl php-mbstring php-xml php-cli
-```
-or
-```sh
-sudo apt update && sudo apt install apache2 mariadb-server php php-mysql
 ```
 
 ### **2. Database Setup**
