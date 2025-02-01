@@ -95,8 +95,8 @@ mysql -u karaoke -p karaoke_db < schema.sql
 
 Ensure you have the necessary Nginx or Apache server blocks:
 
-- Using **Nginx**: admin.karaoke.nginx.conf *and* karaoke.nginx.conf
-- Using **Apache**: admin.karaoke.apache.conf *and* karaoke.apache.conf
+- Using **Nginx**: `admin.karaoke.nginx.conf` *and* `karaoke.nginx.conf`
+- Using **Apache**: `admin.karaoke.apache.conf` *and* `karaoke.apache.conf`
 
 Restart Nginx/Apache:
 
