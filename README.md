@@ -44,7 +44,7 @@ sudo apt update && sudo apt install nginx
 sudo apt update && sudo apt install apache2
 ```
 
-* **MariaDB** or MySQL*
+***MariaDB** or MySQL*
 
 ```
 sudo apt install mariadb-server
