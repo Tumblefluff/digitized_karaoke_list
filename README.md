@@ -36,16 +36,15 @@ A local venue near me has karaoke every week, and the song list is a printed boo
 
 Ensure you have a LAMP/LEMP stack installed:
 
+*Pick one Nginx or Apache2*
 ```sh
 sudo apt update && sudo apt install nginx mariadb-server php php-mysql
 ```
-or
 ```sh
 sudo apt update && sudo apt install apache2 mariadb-server php php-mysql
 ```
 
 Enable necessary PHP extensions:
-
 ```sh
 sudo apt install php-curl php-mbstring php-xml php-cli
 ```
@@ -95,7 +94,6 @@ Restart Nginx/Apache:
 ```sh
 sudo systemctl restart nginx
 ```
-or
 ```sh
 sudo systemctl restart apache2
 ```
