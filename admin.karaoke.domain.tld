@@ -1,18 +1,18 @@
 server {
     listen 80;
-    server_name admin.karaoke.domain.tld;
+    server_name admin.karaoke.domain.tld;  //update to reflect your domain
     return 301 https://$host$request_uri;  # Redirect all HTTP traffic to HTTPS
 }
 
 server {
     listen 443 ssl;
-    server_name admin.karaoke.domain.tld;
+    server_name admin.karaoke.domain.tld;  //update to reflect your domain
 
-    root /path_to/web_content/karaoke-admin;
+    root /path_to/web_content/karaoke-admin;  //update to reflect correct directory.
     index index.php index.html;
 
-    ssl_certificate /path/to/keys/fullchain.pem;
-    ssl_certificate_key /path/to/keys/privkey.pem;
+    ssl_certificate /path/to/keys/fullchain.pem;  //change to reflect where your keys and certs are stored.
+    ssl_certificate_key /path/to/keys/privkey.pem;  //change to reflect where your keys and certs are stored.
 
     location / {
         try_files $uri $uri/ /index.php?$query_string;
