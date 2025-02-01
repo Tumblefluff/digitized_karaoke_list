@@ -1,0 +1,82 @@
+/* Dark Mode Theme */
+.form-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #2a2a2a;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+input {
+    width: 100%;
+}
+
+body {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 20px;
+}
+
+/* Headings */
+h2, h3 {
+    color: #ffcc00; /* Yellow/gold for visibility */
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #2a2a2a;
+    color: #ffffff;
+}
+
+th, td {
+    border: 1px solid #444;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #333;
+    color: #ffcc00;
+}
+
+/* Form Styling */
+form {
+    background-color: #2a2a2a;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+input, button {
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 4px;
+    border: 1px solid #666;
+    background-color: #333;
+    color: #fff;
+}
+
+button {
+    background-color: #ffcc00;
+    color: #1e1e1e;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ffaa00;
+}
+
+/* Links */
+a {
+    color: #ffcc00;
+}
+
+a:hover {
+    color: #ffaa00;
+}
