@@ -178,4 +178,4 @@ Log in with the credentials set up in the database.
 
 ## License
 
-This project is open-source and available under the MIT License.
+This project is open-source and free to use/copy/alter/dissect/pull snippets from/whatever at your own discression.  I hold no liability for what you do with this or any derivitives thereof.
