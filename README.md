@@ -1,2 +1,139 @@
-# digitized_karaoke_list
-A simple web-based karaoke songbook manager that allows a karaoke DJ to maintain a searchable list of songs while keeping an easy-to-use admin panel for managing the catalog.
+# Karaoke Songbook Manager
+
+A simple self-hosted PHP-based karaoke songbook management system with a public song list and an admin panel for managing songs.
+
+## Features
+
+- **Public Song List**: Viewable by all, with search and sorting functionality.
+- **Admin Panel**: Allows admins to log in, add, edit, and delete songs.
+- **User Authentication**: Admin authentication with password hashing and salting.
+- **Password Management**: Initial password setup and password change functionality.
+- **Dark Mode UI**: Optimized for use in dimly lit environments (e.g., bars) with a charcoal gray theme.
+
+## Project Structure
+
+```
+/path_to/web_content/
+│── karaoke/          # Public song list (visitor page)
+│── karaoke-admin/    # Admin panel (requires login)
+│── karaoke-cfg/      # Secure storage for shared config (not publicly accessible)
+```
+
+## Setup Instructions
+
+### **1. Install Dependencies**
+
+Ensure you have a LAMP/LEMP stack installed:
+
+```sh
+sudo apt update && sudo apt install nginx mariadb-server php php-mysql
+```
+
+Enable necessary PHP extensions:
+
+```sh
+sudo apt install php-curl php-mbstring php-xml php-cli
+```
+
+### **2. Database Setup**
+
+Create a MariaDB database and user:
+
+```sql
+CREATE DATABASE karaoke_db;
+CREATE USER 'karaoke'@'localhost' IDENTIFIED BY 'your_secure_password';
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE VIEW, SHOW VIEW ON karaoke_db.* TO 'karaoke'@'localhost';
+FLUSH PRIVILEGES;
+```
+
+Import the database schema:
+
+```sh
+mysql -u karaoke -p karaoke_db < schema.sql
+```
+
+### **3. Configure Nginx**
+
+Ensure you have the necessary Nginx server blocks:
+
+```nginx
+server {
+    listen 80;
+    server_name karaoke.domain.tld;
+    root /path_to/web_content/karaoke;
+    index index.php index.html;
+    
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        include fastcgi_params;
+        fastcgi_pass unix:/run/php/php-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+}
+
+server {
+    listen 80;
+    server_name admin.karaoke.domain.tld;
+    root /path_to/web_content/karaoke-admin;
+    index index.php index.html;
+    
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        include fastcgi_params;
+        fastcgi_pass unix:/run/php/php-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+}
+```
+
+Restart Nginx:
+
+```sh
+sudo systemctl restart nginx
+```
+
+### **4. Configure PHP Database Connection**
+
+Edit `db.php` located in `/mnt/web/karaoke-cfg/`:
+
+```php
+<?php
+$host = 'localhost';
+$dbname = 'karaoke_db';
+$username = 'karaoke';
+$password = 'your_secure_password';
+
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+    ]);
+} catch (PDOException $e) {
+    die("Database connection failed: " . $e->getMessage());
+}
+?>
+```
+
+### **5. Access the System**
+
+- **Public Song List**: `http://karaoke.domain.tld`
+- **Admin Panel**: `http://admin.karaoke.domain.tld`
+
+Log in with the credentials set up in the database.
+
+## Security Recommendations
+
+- Enable HTTPS using Let's Encrypt or another SSL provider.
+- Regularly update the server and dependencies.
+- Restrict database access to localhost.
+- Use strong passwords for database and admin login.
+
+## License
+
+This project is open-source and available under the MIT License.
