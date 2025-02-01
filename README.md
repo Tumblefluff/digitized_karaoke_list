@@ -2,6 +2,11 @@
 
 A simple self-hosted PHP-based karaoke songbook management system with a public song list and an admin panel for managing songs.
 
+## Origins
+
+A local venue near me has karaoke every week, and the song list is a printed book.  I gave the dj a pro-bono upgrade hosted on my homelab webserver.  ...and I wanted to share the code in case anyone else wants to set up their own for themselfs or someone else.
+*enjoy*
+
 ## Features
 
 - **Public Song List**: Viewable by all, with search and sorting functionality.
@@ -9,6 +14,12 @@ A simple self-hosted PHP-based karaoke songbook management system with a public 
 - **User Authentication**: Admin authentication with password hashing and salting.
 - **Password Management**: Initial password setup and password change functionality.
 - **Dark Mode UI**: Optimized for use in dimly lit environments (e.g., bars) with a charcoal gray theme.
+
+## Dependendies
+
+- Nginx (or apache)
+- MariaDB (or MySQL)
+- PHP with PHP-mysql
 
 ## Project Structure
 
@@ -37,13 +48,29 @@ sudo apt install php-curl php-mbstring php-xml php-cli
 
 ### **2. Database Setup**
 
-Create a MariaDB database and user:
+Create a MariaDB database, tables and user:
 
 ```sql
 CREATE DATABASE karaoke_db;
 CREATE USER 'karaoke'@'localhost' IDENTIFIED BY 'your_secure_password';
 GRANT SELECT, INSERT, UPDATE, DELETE, CREATE VIEW, SHOW VIEW ON karaoke_db.* TO 'karaoke'@'localhost';
 FLUSH PRIVILEGES;
+
+USE karaoke_db;
+
+-- Create songs table
+CREATE TABLE songs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    artist VARCHAR(255) NOT NULL
+);
+
+-- Create users table
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL
+);
 ```
 
 Import the database schema:
@@ -120,7 +147,22 @@ try {
 ?>
 ```
 
-### **5. Access the System**
+### **5. Modify files to reflect your credentials**
+
+- **/karaoke-cfg/db.php**: `update line 5`  (set database user's password)
+- **/karaoke-cfg/veri.php**: `update line 2`  (set verification code)
+- optional **/karaoke-cfg/db.php**: `update lines 3 and/or 4`  (change these if you used different names during setup)
+
+### **6. Add Admin User(s)**
+
+- **Add an entry to the users table**:  (repeat for each user)
+```
+INSERT INTO users (username, password_hash) 
+VALUES ('new_user_name', '');
+```
+*Be sure to leave the password_hash BLANK - the system will recognize this as a "new user" and on initial login it will prompt the user to create their password and require a verification code.*
+
+### **7. Access the System**
 
 - **Public Song List**: `http://karaoke.domain.tld`
 - **Admin Panel**: `http://admin.karaoke.domain.tld`
