@@ -105,7 +105,7 @@ Edit `db.php` located in `/mnt/web/karaoke-cfg/`:
 ```php
 <?php
 $host = 'localhost';
-$dbname = 'karaoke_db';
+$dbname = 'songlist_db';
 $username = 'karaoke';
 $password = 'your_secure_password';
 
