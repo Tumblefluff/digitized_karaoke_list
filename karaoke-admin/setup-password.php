@@ -2,8 +2,8 @@
 session_start();
 require_once __DIR__ . '/../karaoke-cfg/db.php';
 require_once __DIR__ . '/../karaoke-cfg/auth.php';
+require_once __DIR__ . '/../karaoke-cfg/veri.php';
 
-$verification_code = "0123456789"; // Replace with your auth-code
 $error = "";
 $success = "";
 
