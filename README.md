@@ -4,7 +4,7 @@ A simple self-hosted PHP-based karaoke songbook management system with a public 
 
 ## Origins
 
-A local venue near me has karaoke every week, and the song list is a printed book.  I gave the dj a pro-bono upgrade hosted on my homelab webserver.  ...and I wanted to share the code in case anyone else wants to set up their own for themselfs or someone else.
+A local venue near me has karaoke every week, and the song list is a printed book.  I gave the dj a pro-bono upgrade hosted on my homelab webserver.  ...and I wanted to share the code in case anyone else wants to set up their own for themself or someone else.
 *enjoy*
 
 ## Features
