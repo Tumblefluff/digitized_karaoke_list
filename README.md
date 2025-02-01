@@ -45,6 +45,10 @@ Enable necessary PHP extensions:
 ```sh
 sudo apt install php-curl php-mbstring php-xml php-cli
 ```
+or
+```sh
+sudo apt update && sudo apt install apache2 mariadb-server php php-mysql
+```
 
 ### **2. Database Setup**
 
@@ -79,50 +83,21 @@ Import the database schema:
 mysql -u karaoke -p karaoke_db < schema.sql
 ```
 
-### **3. Configure Nginx**
+### **3. Configure Nginx (or Apache)**
 
-Ensure you have the necessary Nginx server blocks:
+Ensure you have the necessary Nginx or Apache server blocks:
 
-```nginx
-server {
-    listen 80;
-    server_name karaoke.domain.tld;
-    root /path_to/web_content/karaoke;
-    index index.php index.html;
-    
-    location / {
-        try_files $uri $uri/ /index.php?$query_string;
-    }
+Using **Nginx**: admin.karaoke.nginx.conf *and* karaoke.nginx.conf
+Using **Apache**: admin.karaoke.apache.conf *and* karaoke.apache.conf
 
-    location ~ \.php$ {
-        include fastcgi_params;
-        fastcgi_pass unix:/run/php/php-fpm.sock;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-    }
-}
-
-server {
-    listen 80;
-    server_name admin.karaoke.domain.tld;
-    root /path_to/web_content/karaoke-admin;
-    index index.php index.html;
-    
-    location / {
-        try_files $uri $uri/ /index.php?$query_string;
-    }
-
-    location ~ \.php$ {
-        include fastcgi_params;
-        fastcgi_pass unix:/run/php/php-fpm.sock;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-    }
-}
-```
-
-Restart Nginx:
+Restart Nginx/Apache:
 
 ```sh
 sudo systemctl restart nginx
+```
+or
+```sh
+sudo systemctl restart apache2
 ```
 
 ### **4. Configure PHP Database Connection**
