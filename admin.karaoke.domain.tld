@@ -1,0 +1,31 @@
+server {
+    listen 80;
+    server_name admin.karaoke.domain.tld;
+    return 301 https://$host$request_uri;  # Redirect all HTTP traffic to HTTPS
+}
+
+server {
+    listen 443 ssl;
+    server_name admin.karaoke.domain.tld;
+
+    root /path_to/web_content/karaoke-admin;
+    index index.php index.html;
+
+    ssl_certificate /path/to/keys/fullchain.pem;
+    ssl_certificate_key /path/to/keys/privkey.pem;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        include fastcgi_params;
+        fastcgi_pass unix:/run/php/php-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+
+}
