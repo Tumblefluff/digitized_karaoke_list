@@ -80,3 +80,38 @@ a {
 a:hover {
     color: #ffaa00;
 }
+
+/* Admin Page Specific Styles */
+#admin-dashboard .form-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: none; /* Remove dark background */
+    padding: 0; /* Remove padding */
+    max-width: unset; /* Remove width restriction */
+    margin: 0; /* Remove centering */
+}
+
+/* Keep labels readable */
+#admin-dashboard .form-container label {
+    font-weight: bold;
+}
+
+/* Adjust input fields */
+#admin-dashboard .form-container input {
+    padding: 5px;
+    width: 200px;
+}
+
+/* Adjust button */
+#admin-dashboard .form-container button {
+    margin-left: 10px;
+    background-color: #ffcc00;
+    color: #1e1e1e;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#admin-dashboard .form-container button:hover {
+    background-color: #ffaa00;
+}
