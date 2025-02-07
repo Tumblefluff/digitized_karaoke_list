@@ -3,6 +3,8 @@ A simple self-hosted PHP-based karaoke songbook management system with a public 
 
 [Demo](https://karaoke.demo.tumblefluff.link/) - [Admin-Demo](https://admin.karaoke.demo.tumblefluff.link/login.php)※
 
+Note: The demo sites may show a certificate warning due to sub-subdomain limitations. The current wildcard SSL only covers one level of subdomains, which does not include deeper subdomains like used in the demo. If you see a warning you can proceed safely by accepting the certificate in your browser.  (the certificate belongs to the root domain and appies to root and *.root, while it raises flags for *.*.rooot or deeper it still provides SSL encryption.)
+
 *(※ This demo is in **read-only mode** adding, editing, and deleting songs are disabled, and password changes are locked out. Feel free to explore, but no actual changes can be made.)*
 
 ## ▶️ Origins
