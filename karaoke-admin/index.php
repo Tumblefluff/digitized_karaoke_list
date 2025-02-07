@@ -7,6 +7,9 @@ if (!isset($_SESSION["user_id"])) {
     exit;
 }
 
+// Ensure the username is set before using it
+$username = isset($_SESSION["username"]) ? htmlspecialchars($_SESSION["username"]) : "Admin";
+
 // Fetch all songs from the database
 $stmt = $pdo->query("SELECT id, title, artist FROM songs ORDER BY artist, title");
 $songs = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -24,12 +27,28 @@ $songs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <h2>Admin Dashboard</h2>
-    <p>Welcome, <?php echo htmlspecialchars($_SESSION["username"]); ?>!</p>
-    
+<body id="admin-dashboard">
+    <center> <h2>Admin Dashboard</h2> </center>
+	<table>
+		<tr>
+			<th>
+				<p><big>Welcome, <?php echo $username; ?>!</big></p>
+    		    <a href="change-password.php">Update Password</a> - 
+    			<a href="logout.php">Logout</a>
+			</th><th>
+    			<h3>Add New Song</h3>
+    			<form action="add-song.php" method="POST" class="form-container">
+        			<label for="title">Title:</label>
+			        <input type="text" id="title" name="title" required>
+        			<label for="artist">Artist:</label>
+        			<input type="text" id="artist" name="artist" required>
+		        	<button type="submit">Add Song</button>
+			    </form>
+        	</th>
+		</tr>
+	</table>
     <h3>Song List</h3>
-    <table border="1">
+    <table>
         <tr>
             <th>Title</th>
             <th>Artist</th>
@@ -46,19 +65,5 @@ $songs = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </tr>
         <?php endforeach; ?>
     </table>
-
-    <h3>Add New Song</h3>
-    <form action="add-song.php" method="POST">
-        <label>Title:</label>
-        <input type="text" name="title" required>
-        <br>
-        <label>Artist:</label>
-        <input type="text" name="artist" required>
-        <br>
-        <button type="submit">Add Song</button>
-    </form>
-
-    <br>
-    <a href="logout.php">Logout</a>
 </body>
 </html>
